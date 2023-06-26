@@ -1,6 +1,5 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Cobe from "@/components/cobe";
 
 export default function Home() {
-  return <p>ao</p>;
+  return <Cobe />;
 }
