@@ -1,6 +1,8 @@
 "use client";
 
+import { coords } from "@/lib/coords";
 import createGlobe from "cobe";
+import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
 
 export default function Cobe() {
@@ -14,6 +16,14 @@ export default function Cobe() {
   };
 
   const focusRef = useRef([0, 0]);
+  const markerRef = useRef<[number, number]>([0, 0]);
+
+  const data = useAtomValue(coords);
+
+  if (data) {
+    focusRef.current = locationToAngles(data[0], data[1]);
+    markerRef.current = [data[0], data[1]];
+  }
 
   useEffect(() => {
     let width = 0;
@@ -40,14 +50,11 @@ export default function Cobe() {
       mapBrightness: 1.2,
       baseColor: [1, 1, 1],
       markerColor: [251 / 255, 200 / 255, 21 / 255],
-      glowColor: [1.2, 1.2, 1.2],
-      markers: [
-        { location: [37.78, -122.412], size: 0.1 },
-        { location: [52.52, 13.405], size: 0.1 },
-        { location: [35.676, 139.65], size: 0.1 },
-        { location: [-34.6, -58.38], size: 0.1 },
-      ],
+      glowColor: [0.2, 0.2, 0.2],
+      markers: [{ location: markerRef.current, size: 0.1 }],
       onRender: (state) => {
+        state.markers = [{ location: markerRef.current, size: 0.1 }];
+
         state.phi = currentPhi;
         state.theta = currentTheta;
         const [focusPhi, focusTheta] = focusRef.current;
@@ -94,40 +101,6 @@ export default function Cobe() {
           transition: "opacity 1s ease",
         }}
       />
-      <div
-        className="flex flex-col md:flex-row justify-center items-center control-buttons"
-        style={{ gap: ".5rem" }}
-      >
-        Rotate to:
-        <button
-          onClick={() => {
-            focusRef.current = locationToAngles(37.78, -122.412);
-          }}
-        >
-          📍 San Francisco
-        </button>
-        <button
-          onClick={() => {
-            focusRef.current = locationToAngles(52.52, 13.405);
-          }}
-        >
-          📍 Berlin
-        </button>
-        <button
-          onClick={() => {
-            focusRef.current = locationToAngles(35.676, 139.65);
-          }}
-        >
-          📍 Tokyo
-        </button>
-        <button
-          onClick={() => {
-            focusRef.current = locationToAngles(-34.6, -58.38);
-          }}
-        >
-          📍 Buenos Aires
-        </button>
-      </div>
     </div>
   );
 }

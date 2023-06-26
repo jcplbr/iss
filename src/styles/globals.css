@@ -23,6 +23,7 @@
   --grayA10: hsl(0 0% 100% / 0.446);
   --grayA11: hsl(0 0% 100% / 0.592);
   --grayA12: hsl(0 0% 100% / 0.923);
+  --solarized: hsl(44 87% 94%);
 }
 
 *, *::before, *::after {
