@@ -1,0 +1,61 @@
+:root {
+  --gray1: hsl(0 0% 8.5%);
+  --gray2: hsl(0 0% 11.0%);
+  --gray3: hsl(0 0% 13.6%);
+  --gray4: hsl(0 0% 15.8%);
+  --gray5: hsl(0 0% 17.9%);
+  --gray6: hsl(0 0% 20.5%);
+  --gray7: hsl(0 0% 24.3%);
+  --gray8: hsl(0 0% 31.2%);
+  --gray9: hsl(0 0% 43.9%);
+  --gray10: hsl(0 0% 49.4%);
+  --gray11: hsl(0 0% 62.8%);
+  --gray12: hsl(0 0% 93.0%);
+  --grayA1: hsl(0 0% 100% / 0);
+  --grayA2: hsl(0 0% 100% / 0.026);
+  --grayA3: hsl(0 0% 100% / 0.056);
+  --grayA4: hsl(0 0% 100% / 0.077);
+  --grayA5: hsl(0 0% 100% / 0.103);
+  --grayA6: hsl(0 0% 100% / 0.129);
+  --grayA7: hsl(0 0% 100% / 0.172);
+  --grayA8: hsl(0 0% 100% / 0.249);
+  --grayA9: hsl(0 0% 100% / 0.386);
+  --grayA10: hsl(0 0% 100% / 0.446);
+  --grayA11: hsl(0 0% 100% / 0.592);
+  --grayA12: hsl(0 0% 100% / 0.923);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: var(--gray1);
+  color: var(--gray12);
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  font-size: 1rem;
+  line-height: 1.75rem;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
