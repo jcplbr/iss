@@ -3,7 +3,7 @@
 import { coords } from "@/lib/coords";
 import { useQuery } from "@tanstack/react-query";
 import { useSetAtom } from "jotai";
-import Cobe from "./cobe";
+import Cobe from "./Cobe";
 
 export default function Map() {
   const setCoords = useSetAtom(coords);

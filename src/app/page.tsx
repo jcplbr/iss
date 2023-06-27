@@ -1,5 +1,11 @@
+import Card from "@/components/Card";
 import Map from "@/components/map";
 
 export default function Home() {
-  return <Map />;
+  return (
+    <main>
+      <Map />
+      <Card />
+    </main>
+  );
 }

@@ -1,9 +1,10 @@
 "use client";
 
-import { coords } from "@/lib/coords";
 import createGlobe from "cobe";
-import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
+import { coords } from "@/lib/coords";
+import { useAtomValue } from "jotai";
+import styles from "./cobe.module.css";
 
 export default function Cobe() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -27,6 +28,7 @@ export default function Cobe() {
 
   useEffect(() => {
     let width = 0;
+    let height = 0;
     let currentPhi = 0;
     let currentTheta = 0;
     const doublePi = Math.PI * 2;
@@ -43,15 +45,17 @@ export default function Cobe() {
       width: width * 2,
       height: width * 2,
       phi: 0,
-      theta: 0.3,
+      theta: 0,
       dark: 1,
       diffuse: 3,
-      mapSamples: 16000,
-      mapBrightness: 1.2,
+      mapSamples: 32000,
+      mapBrightness: 1,
       baseColor: [1, 1, 1],
-      markerColor: [251 / 255, 200 / 255, 21 / 255],
+      markerColor: [94 / 255, 92 / 255, 230 / 255],
       glowColor: [0.2, 0.2, 0.2],
       markers: [{ location: markerRef.current, size: 0.1 }],
+      scale: 1,
+      offset: [width * 0.25, height * 0.25],
       onRender: (state) => {
         state.markers = [{ location: markerRef.current, size: 0.1 }];
 
@@ -82,23 +86,12 @@ export default function Cobe() {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: 600,
-        aspectRatio: 1,
-        margin: "auto",
-        position: "relative",
-      }}
-    >
+    <div className={styles.container}>
       <canvas
         ref={canvasRef}
+        className={styles.content}
         style={{
-          width: "100%",
-          height: "100%",
           contain: "layout paint size",
-          opacity: 0,
-          transition: "opacity 1s ease",
         }}
       />
     </div>

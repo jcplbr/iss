@@ -1,0 +1,44 @@
+.container {
+    min-width: 12rem;
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--gray6);
+    background: transparent;
+    backdrop-filter: saturate(100%) blur(24px);
+}
+
+.heading {
+    width: max-content;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--gray10);
+    margin-bottom: 12px;
+}
+
+.underline {
+    text-underline-offset: 2px;
+}
+
+.coords_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.coords_info {
+    width: max-content;
+    color: var(--gray10);
+    font-size: .75rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.coords_numbers {
+    color: var(--gray12);
+    font-size: 1.75rem;
+    font-weight: 400;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
