@@ -54,11 +54,11 @@ export default function Cobe() {
       markerColor: [251 / 255, 200 / 255, 21 / 255],
       // markerColor: [94 / 255, 92 / 255, 230 / 255],
       glowColor: [0.2, 0.2, 0.2],
-      markers: [{ location: markerRef.current, size: 0.1 }],
+      markers: [{ location: markerRef.current, size: 0.08 }],
       scale: 1,
       offset: [width * 0.25, height * 0.25],
       onRender: (state) => {
-        state.markers = [{ location: markerRef.current, size: 0.1 }];
+        state.markers = [{ location: markerRef.current, size: 0.08 }];
 
         state.phi = currentPhi;
         state.theta = currentTheta;
