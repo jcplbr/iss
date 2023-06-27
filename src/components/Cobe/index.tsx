@@ -74,7 +74,7 @@ export default function Cobe() {
 
         currentTheta = currentTheta * 0.92 + focusTheta * 0.08;
         state.width = width * 2;
-        state.height = width * 2;
+        state.height = height * 2;
       },
     });
 
@@ -87,13 +87,15 @@ export default function Cobe() {
 
   return (
     <div className={styles.container}>
-      <canvas
-        ref={canvasRef}
-        className={styles.content}
-        style={{
-          contain: "layout paint size",
-        }}
-      />
+      <div className={styles.cobe_wrapper}>
+        <canvas
+          ref={canvasRef}
+          className={styles.cobe_content}
+          style={{
+            contain: "layout paint size",
+          }}
+        />
+      </div>
     </div>
   );
 }
