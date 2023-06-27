@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useSetAtom } from "jotai";
 import Cobe from "./Cobe";
 
+export const runtime = "edge";
+
 export default function Map() {
   const setCoords = useSetAtom(coords);
 
