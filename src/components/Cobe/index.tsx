@@ -46,7 +46,7 @@ export default function Cobe() {
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
       width: width * 2,
-      height: width * 2,
+      height: height * 2,
       phi: 0,
       theta: 0,
       dark: 1,
@@ -58,7 +58,7 @@ export default function Cobe() {
       glowColor: [0.2, 0.2, 0.2],
       markers: [{ location: markerRef.current, size: 0.08 }],
       scale: 1,
-      offset: [width * 0.25, height * 0.25],
+      offset: [width * 0.25, height * 0.125],
       onRender: (state) => {
         state.width = width * 2;
         state.height = height * 2;
@@ -69,7 +69,7 @@ export default function Cobe() {
         state.theta = currentTheta;
         const [focusPhi, focusTheta] = focusRef.current;
         const distPositive = (focusPhi - currentPhi + doublePi) % doublePi;
-        const distNegative = (currentPhi - focusPhi + doublePi) % doublePi; // Control the speed
+        const distNegative = (currentPhi - focusPhi + doublePi) % doublePi;
         if (distPositive < distNegative) {
           currentPhi += distPositive * 0.08;
         } else {
