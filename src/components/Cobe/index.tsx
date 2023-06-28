@@ -3,10 +3,30 @@
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 import { coords } from "@/lib/coords";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import styles from "./cobe.module.css";
+import { useQuery } from "@tanstack/react-query";
+
+export const runtime = "edge";
 
 export default function Cobe() {
+  const setCoords = useSetAtom(coords);
+
+  useQuery({
+    queryKey: ["issData"],
+    queryFn: async () => {
+      const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
+      return res.json();
+    },
+    onSuccess: (data) => {
+      if (data.latitude && data.longitude) {
+        setCoords([data.latitude, data.longitude]);
+      }
+    },
+    refetchOnWindowFocus: false,
+    refetchInterval: 1000,
+  });
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const locationToAngles = (lat: number, long: number) => {
@@ -90,13 +110,9 @@ export default function Cobe() {
       <div className={styles.cobe_wrapper}>
         <canvas
           ref={canvasRef}
-          // className={styles.cobe_content}
+          className={styles.cobe_content}
           style={{
-            width: "100%",
-            height: "100%",
             contain: "layout paint size",
-            opacity: 0,
-            transition: "opacity 1s ease",
           }}
         />
       </div>
