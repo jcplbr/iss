@@ -5,7 +5,7 @@
 
 .cobe_wrapper {
     width: 100%;
-    max-width: 1200px;
+    max-width: 600px;
     aspect-ratio: 1 / 1;
     position: absolute;
     inset: 0;
@@ -17,7 +17,7 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    /* transition: opacity 1s ease; */
+    transition: opacity 1s ease;
 }
 
 @media (max-width: 425px) {
