@@ -3,30 +3,10 @@
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 import { coords } from "@/lib/coords";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import styles from "./cobe.module.css";
-import { useQuery } from "@tanstack/react-query";
-
-export const runtime = "edge";
 
 export default function Cobe() {
-  const setCoords = useSetAtom(coords);
-
-  useQuery({
-    queryKey: ["issData"],
-    queryFn: async () => {
-      const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
-      return res.json();
-    },
-    onSuccess: (data) => {
-      if (data.latitude && data.longitude) {
-        setCoords([data.latitude, data.longitude]);
-      }
-    },
-    refetchOnWindowFocus: false,
-    refetchInterval: 1000,
-  });
-
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const locationToAngles = (lat: number, long: number) => {
@@ -35,7 +15,6 @@ export default function Cobe() {
       (lat * Math.PI) / 180,
     ];
   };
-
   const focusRef = useRef([0, 0]);
   const markerRef = useRef<[number, number]>([0, 0]);
 
@@ -47,13 +26,17 @@ export default function Cobe() {
   }
 
   useEffect(() => {
-    let width = 0;
     let height = 0;
+    let width = 0;
     let currentPhi = 0;
     let currentTheta = 0;
     const doublePi = Math.PI * 2;
-    const onResize = () =>
-      canvasRef.current && (width = canvasRef.current.offsetWidth);
+    const onResize = () => {
+      if (canvasRef.current) {
+        height = canvasRef.current.offsetHeight;
+        width = canvasRef.current.offsetWidth;
+      }
+    };
 
     window.addEventListener("resize", onResize);
     onResize();
@@ -63,7 +46,7 @@ export default function Cobe() {
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
       width: width * 2,
-      height: width * 2,
+      height: height * 2,
       phi: 0,
       theta: 0,
       dark: 1,
@@ -71,30 +54,29 @@ export default function Cobe() {
       mapSamples: 32000,
       mapBrightness: 1,
       baseColor: [1, 1, 1],
-      markerColor: [251 / 255, 200 / 255, 21 / 255],
-      glowColor: [0.2, 0.2, 0.2],
-      markers: [{ location: markerRef.current, size: 0.08 }],
+      markerColor: [229 / 255, 72 / 255, 77 / 255],
+      glowColor: [0.3, 0.3, 0.3],
+      markers: [{ location: markerRef.current, size: 0.1 }],
       scale: 1,
-      offset: [width * 0.25, height * 0.25],
+      offset: [width * 0.25, -height * 0.125],
       onRender: (state) => {
-        state.markers = [{ location: markerRef.current, size: 0.08 }];
+        state.width = width * 2;
+        state.height = height * 2;
 
+        state.markers = [{ location: markerRef.current, size: 0.1 }];
+
+        // animated move
         state.phi = currentPhi;
         state.theta = currentTheta;
         const [focusPhi, focusTheta] = focusRef.current;
         const distPositive = (focusPhi - currentPhi + doublePi) % doublePi;
-        const distNegative = (currentPhi - focusPhi + doublePi) % doublePi;
-
-        // Control the speed
+        const distNegative = (currentPhi - focusPhi + doublePi) % doublePi; // Control the speed
         if (distPositive < distNegative) {
           currentPhi += distPositive * 0.08;
         } else {
           currentPhi -= distNegative * 0.08;
         }
-
         currentTheta = currentTheta * 0.92 + focusTheta * 0.08;
-        state.width = width * 2;
-        state.height = height * 2;
       },
     });
 

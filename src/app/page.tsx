@@ -1,10 +1,10 @@
 import Card from "@/components/Card";
-import Cobe from "@/components/Cobe";
+import Map from "@/components/map";
 
 export default function Home() {
   return (
     <main>
-      <Cobe />
+      <Map />
       <Card />
     </main>
   );
