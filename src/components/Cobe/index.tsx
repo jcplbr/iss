@@ -46,7 +46,7 @@ export default function Cobe() {
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
       width: width * 2,
-      height: height * 2,
+      height: width * 2,
       phi: 0,
       theta: 0,
       dark: 1,
@@ -54,18 +54,17 @@ export default function Cobe() {
       mapSamples: 32000,
       mapBrightness: 1,
       baseColor: [1, 1, 1],
-      markerColor: [229 / 255, 72 / 255, 77 / 255],
-      glowColor: [0.3, 0.3, 0.3],
-      markers: [{ location: markerRef.current, size: 0.1 }],
+      markerColor: [251 / 255, 200 / 255, 21 / 255],
+      glowColor: [0.2, 0.2, 0.2],
+      markers: [{ location: markerRef.current, size: 0.08 }],
       scale: 1,
-      offset: [width * 0.25, -height * 0.125],
+      offset: [width * 0.25, height * 0.25],
       onRender: (state) => {
         state.width = width * 2;
         state.height = height * 2;
 
-        state.markers = [{ location: markerRef.current, size: 0.1 }];
+        state.markers = [{ location: markerRef.current, size: 0.08 }];
 
-        // animated move
         state.phi = currentPhi;
         state.theta = currentTheta;
         const [focusPhi, focusTheta] = focusRef.current;
