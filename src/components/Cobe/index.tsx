@@ -45,18 +45,15 @@ export default function Cobe() {
       width: width * 2,
       height: width * 2,
       phi: 0,
-      theta: 0,
+      theta: 0.3,
       dark: 1,
       diffuse: 3,
-      mapSamples: 32000,
-      mapBrightness: 1,
+      mapSamples: 16000,
+      mapBrightness: 1.2,
       baseColor: [1, 1, 1],
       markerColor: [251 / 255, 200 / 255, 21 / 255],
-      // markerColor: [94 / 255, 92 / 255, 230 / 255],
-      glowColor: [0.2, 0.2, 0.2],
+      glowColor: [1.2, 1.2, 1.2],
       markers: [{ location: markerRef.current, size: 0.08 }],
-      scale: 1,
-      offset: [width * 0.25, height * 0.25],
       onRender: (state) => {
         state.markers = [{ location: markerRef.current, size: 0.08 }];
 
@@ -65,19 +62,54 @@ export default function Cobe() {
         const [focusPhi, focusTheta] = focusRef.current;
         const distPositive = (focusPhi - currentPhi + doublePi) % doublePi;
         const distNegative = (currentPhi - focusPhi + doublePi) % doublePi;
-
         // Control the speed
         if (distPositive < distNegative) {
           currentPhi += distPositive * 0.08;
         } else {
           currentPhi -= distNegative * 0.08;
         }
-
         currentTheta = currentTheta * 0.92 + focusTheta * 0.08;
         state.width = width * 2;
-        state.height = height * 2;
+        state.height = width * 2;
       },
     });
+    // const globe = createGlobe(canvasRef.current, {
+    //   devicePixelRatio: 2,
+    //   width: width * 2,
+    //   height: width * 2,
+    //   phi: 0,
+    //   theta: 0,
+    //   dark: 1,
+    //   diffuse: 3,
+    //   mapSamples: 32000,
+    //   mapBrightness: 1,
+    //   baseColor: [1, 1, 1],
+    //   markerColor: [251 / 255, 200 / 255, 21 / 255],
+    //   glowColor: [0.2, 0.2, 0.2],
+    //   markers: [{ location: markerRef.current, size: 0.08 }],
+    //   scale: 1,
+    //   offset: [width * 0.25, height * 0.25],
+    //   onRender: (state) => {
+    //     state.markers = [{ location: markerRef.current, size: 0.08 }];
+
+    //     state.phi = currentPhi;
+    //     state.theta = currentTheta;
+    //     const [focusPhi, focusTheta] = focusRef.current;
+    //     const distPositive = (focusPhi - currentPhi + doublePi) % doublePi;
+    //     const distNegative = (currentPhi - focusPhi + doublePi) % doublePi;
+
+    //     // Control the speed
+    //     if (distPositive < distNegative) {
+    //       currentPhi += distPositive * 0.08;
+    //     } else {
+    //       currentPhi -= distNegative * 0.08;
+    //     }
+
+    //     currentTheta = currentTheta * 0.92 + focusTheta * 0.08;
+    //     state.width = width * 2;
+    //     state.height = height * 2;
+    //   },
+    // });
 
     setTimeout(() => {
       if (!canvasRef.current) return;
