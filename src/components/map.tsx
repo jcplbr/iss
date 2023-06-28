@@ -3,7 +3,7 @@
 import { coords } from "@/lib/coords";
 import { useQuery } from "@tanstack/react-query";
 import { useSetAtom } from "jotai";
-import Cobe from "./Cobe";
+import Cobe from "./cobe";
 
 export const runtime = "edge";
 
