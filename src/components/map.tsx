@@ -13,7 +13,7 @@ export default function Map() {
   useQuery({
     queryKey: ["issData"],
     queryFn: async () => {
-      const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
+      const res = await fetch("/api/issData");
       return res.json();
     },
     onSuccess: (data) => {
